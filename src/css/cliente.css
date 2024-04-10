@@ -1,0 +1,211 @@
+/* Estabelece um modelo de caixa consistente em toda a página e remove as margens e o padding padrão */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Define a altura total para o corpo e html, e aplica uma fonte padrão */
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Estiliza a barra de navegação no topo da página */
+.navbar {
+    display: flex; /* Utiliza Flexbox para o layout */
+    justify-content: space-between; /* Alinha os itens nos extremos opostos */
+    align-items: center; /* Centraliza os itens verticalmente */
+    background-color: #2c3e50; /* Define a cor de fundo */
+    padding: 0 20px; /* Adiciona padding horizontal */
+    color: white; /* Define a cor do texto */
+    height: 50px; /* Define a altura */
+}
+
+/* Estiliza o contêiner principal da página que envolve a barra lateral e o conteúdo principal */
+.wrapper {
+    display: flex; /* Utiliza Flexbox */
+    height: 100%; /* Define a altura */
+}
+
+/* Estiliza a barra lateral */
+.sidebar {
+    width: 200px; /* Define a largura */
+    background: #34495e; /* Define a cor de fundo */
+    padding: 20px; /* Adiciona padding interno */
+}
+
+/* Estiliza o conteúdo principal à direita da barra lateral */
+.main-content {
+    flex-grow: 1; /* Permite que o conteúdo principal cresça e ocupe o espaço restante */
+    padding: 20px; /* Adiciona padding interno */
+    background-color: #ecf0f1; /* Define a cor de fundo */
+}
+
+/* Estiliza o cabeçalho dentro do conteúdo principal */
+.content-header {
+    display: flex; /* Utiliza Flexbox */
+    justify-content: space-between; /* Alinha os itens nos extremos opostos */
+    margin-bottom: 20px; /* Adiciona margem abaixo */
+}
+
+/* Define o estilo para a logo */
+.logo {
+    color: #fff; /* Define a cor do texto */
+    margin-bottom: 20px; /* Adiciona margem abaixo */
+}
+
+/* Remove o estilo de lista padrão e define o padding para zero */
+.menu ul {
+    list-style-type: none; /* Remove os marcadores */
+    padding: 0; /* Remove o padding */
+}
+
+/* Define o estilo dos itens do menu na barra lateral */
+.menu li {
+    color: white; /* Define a cor do texto */
+    margin-bottom: 10px; /* Adiciona margem abaixo */
+    cursor: pointer; /* Muda o cursor para indicar clicabilidade */
+}
+
+/* Define o estilo dos botões de ação rápida */
+.quick-links button {
+    padding: 10px; /* Adiciona padding */
+    margin-right: 5px; /* Adiciona margem à direita */
+    border: none; /* Remove a borda */
+    cursor: pointer; /* Muda o cursor */
+}
+
+/* Define cores específicas para cada botão de ação rápida */
+.btn-clientes { background-color: #3498db; color: white; }
+.btn-produtos { background-color: #2ecc71; color: white; }
+.btn-servicos { background-color: #f1c40f; color: white; }
+.btn-os { background-color: #e74c3c; color: white; }
+.btn-vendas { background-color: #9b59b6; color: white; }
+
+/* Estiliza a tabela de clientes */
+table {
+    width: 100%; /* Ocupa toda a largura disponível */
+    border-collapse: collapse; /* Remove espaços entre as células */
+}
+
+/* Define o estilo dos cabeçalhos e células da tabela */
+table, th, td {
+    border: 1px solid #bdc3c7; /* Adiciona borda */
+}
+
+/* Define o alinhamento do texto e o padding para cabeçalhos e células */
+th, td {
+    text-align: left; /* Alinha o texto à esquerda */
+    padding: 8px; /* Adiciona padding */
+}
+
+/* Define o estilo do cabeçalho da tabela */
+th {
+    background-color: #ecf0f1; /* Cor de fundo */
+}
+
+/* Define o estilo das linhas alternadas da tabela */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Cor de fundo */
+}
+
+/* Define o estilo dos botões dentro da tabela */
+button {
+    padding: 5px 10px; /* Adiciona padding */
+    margin-right: 5px; /* Adiciona margem à direita */
+    background-color: #3498db; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda */
+    cursor: pointer; /* Muda o cursor */
+}
+
+/* Estiliza o modal de adição de cliente */
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed; /* Fixo na página */
+    z-index: 1; /* Sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgb(0,0,0); /* Cor de fundo */
+    background-color: rgba(0,0,0,0.4); /* Cor de fundo com opacidade */
+    padding-top: 60px; /* Espaço no topo */
+}
+
+/* Estiliza o conteúdo do modal */
+.modal-content {
+    background-color: #fefefe; /* Cor de fundo */
+    margin: auto; /* Centraliza */
+    padding: 40px; /* Padding interno */
+    border: 1px solid #888; /* Borda */
+    width: 80%; /* Largura */
+    max-width: 500px; /* Largura máxima */
+}
+
+/* Estiliza o botão de fechar o modal */
+.close-button {
+    color: red; /* Cor */
+    float: right; /* Posição à direita */
+    font-size: 28px; /* Tamanho da fonte */
+    font-weight: bold; /* Peso da fonte */
+}
+
+/* Efeito de hover e focus no botão de fechar */
+.close-button:hover,
+.close-button:focus {
+    color: #000; /* Cor ao passar o mouse ou focar */
+    text-decoration: none; /* Remove decoração do texto */
+    cursor: pointer; /* Muda o cursor */
+}
+
+/* Estiliza o botão de submit do formulário */
+input[type="submit"] {
+    background-color: #4CAF50; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    padding: 14px 20px; /* Padding */
+    margin: 8px 0; /* Margem */
+    border: none; /* Remove borda */
+    border-radius: 4px; /* Arredonda bordas */
+    cursor: pointer; /* Muda o cursor */
+}
+
+/* Efeito de hover no botão de submit */
+input[type="submit"]:hover {
+    background-color: #45a049; /* Muda a cor de fundo ao passar o mouse */
+}
+
+/* Define o estilo de cada grupo de campos do formulário */
+.form-group {
+    margin-bottom: 20px; /* Espaço entre os campos */
+}
+
+/* Estiliza os rótulos dos campos do formulário */
+.form-group label {
+    display: block; /* Exibe o rótulo acima do campo */
+    margin-bottom: 5px; /* Espaço entre o rótulo e o campo */
+}
+
+/* Estiliza os campos de texto e o botão de submit do formulário */
+.form-group input[type="text"],
+.form-group input[type="submit"] {
+    width: calc(100% - 22px); /* Ajusta a largura para preencher o espaço disponível */
+    padding: 10px; /* Padding nos campos de texto */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Arredonda as bordas */
+}
+
+/* Centraliza o botão de salvar e ajusta seu estilo */
+.action-buttons {
+    text-align: center; /* Centraliza o botão */
+}
+
+/* Ajusta o botão de salvar */
+.action-buttons input[type="submit"] {
+    cursor: pointer; /* Muda o cursor */
+    font-weight: bold; /* Peso da fonte */
+    width: auto; /* Largura baseada no conteúdo */
+    margin-top: 20px; /* Espaço acima do botão */
+}

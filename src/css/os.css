@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 0 20px;
+    color: white;
+    height: 50px;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.sidebar {
+    background-color: #34495e;
+    width: 200px;
+    padding: 20px;
+    color: white;
+}
+
+.sidebar .logo {
+    margin-bottom: 30px;
+}
+
+.sidebar .menu ul {
+    list-style: none;
+}
+
+.sidebar .menu ul li {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column; /* Organiza o conteúdo em coluna */
+    min-height: calc(100vh - 50px); /* Subtrai a altura da navbar */
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ecf0f1
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header .search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.header .search input {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.header .search button {
+    cursor: pointer;
+}
+
+.actions {
+    margin-bottom: 10px;
+}
+
+#add-os {
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.os-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.os-table thead {
+    background-color: #ecf0f1;
+}
+
+.os-table th, .os-table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.os-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.add-button {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+

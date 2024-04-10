@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Define a codificação de caracteres e a viewport para responsividade -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link para o CSS da homepage e Bootstrap para estilos -->
+    <link rel="stylesheet" href="src/css/homepage.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Título da página exibido na aba do navegador -->
+    <title>homepage</title>
+</head>
+
+<body>
+    <!-- Barra de navegação superior -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <!-- Local para logo da empresa ou projeto -->
+            <div class="logo">LOGO</div>
+        </div>
+        <div class="navbar-right">
+            <!-- Opções de suporte e nome do usuário com menu dropdown -->
+            <span>SUPORTE</span> | <span>NOME &#9662;</span>
+        </div>
+    </nav>
+    
+    <!-- Wrapper para a barra lateral e o conteúdo principal -->
+    <div class="wrapper">
+        <!-- Barra lateral para navegação no menu -->
+        <aside class="sidebar">
+            <nav class="menu">
+                <ul>
+                    <li>Visão Geral</li>
+                    <li>Cadastros</li>
+                    <li>Vendas</li>
+                    <li>Estoque</li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Conteúdo principal da homepage -->
+        <main class="main-content">
+            <!-- Seção de links rápidos para as principais funcionalidades -->
+            <section class="quick-links">
+                <button id="btn-clientes" class="btn-clientes">Clientes</button>
+                <button id="btn-produtos" class="btn-produtos">Produtos</button>
+                <button id="btn-servicos" class="btn-servicos">Serviços</button>
+                <button id="btn-os" class="btn-os">OS</button>
+                <button id="btn-vendas" class="btn-vendas">Vendas</button>   
+            </section>
+            <!-- Seção do painel para exibir informações, como estoque baixo ou OS em aberto -->
+            <section class="dashboard">
+                <div class="panel">
+                    <h2>Produtos com Estoque Baixo</h2>
+                    <!-- Conteúdo do painel -->
+                </div>
+                <div class="panel">
+                    <h2>Ordens de Serviço em Aberto</h2>
+                     <!-- Conteúdo do painel -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Scripts para funcionalidade adicional do Bootstrap e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- Script específico da homepage para adicionar interatividade -->
+    <script src="src/js/homepage.js"></script>
+</body>
+</html>

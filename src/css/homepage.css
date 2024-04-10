@@ -1,0 +1,88 @@
+/* Estilos base para todos os elementos, removendo margens, paddings e definindo box-sizing para melhor controle do layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para o corpo da página, definindo altura total, fonte padrão e outras propriedades básicas de visualização */
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização da barra de navegação, posicionada no topo da página, com cores de fundo e texto definidas */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 0 20px;
+    color: white;
+    height: 50px;
+}
+
+/* Estrutura que envolve o conteúdo lateral (sidebar) e o conteúdo principal, dispostos horizontalmente */
+.wrapper {
+    display: flex;
+}
+
+/* Estilos para a barra lateral, incluindo cor de fundo, cor do texto, largura e espaçamento */
+.sidebar {
+    background-color: #34495e;
+    color: white;
+    width: 200px;
+    padding: 20px;
+}
+
+/* Espaçamento abaixo do logo dentro da barra lateral */
+.sidebar .logo {
+    margin-bottom: 30px;
+}
+
+/* Estilos para a lista de menu dentro da barra lateral, removendo estilos de lista e definindo espaçamento dos itens */
+.menu ul {
+    list-style-type: none;
+}
+.menu ul li {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+/* Estilização do conteúdo principal, ajustando a disposição dos elementos e garantindo que ocupe a altura restante da tela */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 50px);
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Botões de links rápidos centralizados e com espaçamento entre si */
+.quick-links {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+.quick-links button {
+    padding: 20px;
+    margin-right: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cores de fundo específicas para cada botão de link rápido */
+.btn-clientes { background-color: #3498db; color: white; }
+.btn-produtos { background-color: #2ecc71; color: white; }
+.btn-servicos { background-color: #f1c40f; color: white; }
+.btn-os { background-color: #e74c3c; color: white; }
+.btn-vendas { background-color: #9b59b6; color: white; }
+
+/* Estilos dos painéis dentro do conteúdo principal, com margens, paddings e bordas definidas */
+.dashboard .panel {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    padding: 10px;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
