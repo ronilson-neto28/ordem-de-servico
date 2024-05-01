@@ -1,103 +1,134 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const modalCadastrar = new bootstrap.Modal(document.getElementById('staticBackdrop'));
 
-    // Exibe o formulário para adicionar um novo técnico
-    document.getElementById('btn-add-tecnico').addEventListener('click', function() {
-        document.getElementById('form-add-tecnico').style.display = 'block';
-    });
+    function formatarTelefone(telefone) {
+        const regex = /^(\d{2})(\d{5})(\d{4})$/;
+        return telefone.replace(regex, '($1) $2-$3');
+    }
 
-    // Lidar com o envio do formulário de técnico
-    document.getElementById('form-tecnico').addEventListener('submit', function(event) {
-        event.preventDefault();
+    function formatarCPF(cpf) {
+        const regex = /^(\d{3})(\d{3})(\d{3})(\d{2})$/;
+        return cpf.replace(regex, '$1.$2.$3-$4');
+    }   
 
+    // Adicionar tecnico e contatos
+    document.querySelector('#staticBackdrop .btn-primary').addEventListener('click', function() {
         const nome = document.getElementById('nome').value;
-        const telefone = document.getElementById('telefone').value;
         const cpf = document.getElementById('cpf').value;
+        const telefone1 = document.getElementById('telefone1').value;
+        const telefone2 = document.getElementById('telefone2').value;
 
-        const tecnico = {
+        const tecnicoData = {
             nome: nome,
-            telefone: telefone,
             cpf: cpf
         };
 
-        // Envia os dados do novo técnico para o servidor
-        axios.post('http://localhost:3000/tecnicos', tecnico)
-        .then(function (response) {
-            console.log('Sucesso:', response.data);
-            // Fecha o formulário ou limpa os campos após o sucesso
-            document.getElementById('form-tecnico').reset();
-            document.getElementById('form-add-tecnico').style.display = 'none';
-            // Atualiza a lista de técnicos
-            buscarTecnicos();
+        axios.post('http://[::1]:3000/tecnicos', tecnicoData)
+        .then(response => {
+            const tecnicoId = response.data.id;
+            const telefones = [telefone1, telefone2].filter(t => t);
+            telefones.forEach(telefone => {
+                axios.post('http://[::1]:3000/contato-tecnicos', {
+                    telefone: telefone,
+                    tecnicoId: tecnicoId
+                });
+            });
+
+            modalCadastrar.hide();
+            listarTecnicos();
         })
-        .catch(function (error) {
-            console.error('Erro:', error);
-            // Trata o erro aqui, como mostrar uma mensagem para o usuário
-        });
+        .catch(error => console.error('Erro ao salvar tecnico:', error));
     });
 
-    function fecharFormulario() {
-        document.getElementById('form-add-tecnico').style.display = 'none';
-    }
-
-    // Busca e exibe os técnicos
-    function buscarTecnicos() {
-        axios.get('http://localhost:3000/tecnicos')
-        .then(function(response) {
+    function listarTecnicos() {
+        axios.get('http://[::1]:3000/tecnicos')
+        .then(response => {
             const tecnicos = response.data;
-            const tabelaTecnicos = document.querySelector('.main-content tbody');
-            tabelaTecnicos.innerHTML = ''; // Limpa a tabela antes de adicionar novas linhas
-
+            const tbody = document.querySelector('.main-content tbody');
+            tbody.innerHTML = ''; // Limpa tabela
+    
             tecnicos.forEach(tecnico => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${tecnico.id}</td>
-                    <td>${tecnico.nome}</td>
-                    <td>${tecnico.telefone}</td>
-                    <td>${tecnico.cpf}</td>
-                    <td>
-                        <button onclick="editarTecnico(${tecnico.id})">Editar</button>
-                        <button onclick="excluirTecnico(${tecnico.id})">Excluir</button>
-                    </td>
-                `;
-                tabelaTecnicos.appendChild(tr);
+                // Atualize a URL de acordo com a nova rota de contato-tecnicos específica do tecnico
+                axios.get(`http://[::1]:3000/tecnicos/${tecnico.id}/contato-tecnicos    `)
+                .then(responseContatos => {
+                    const telefones = responseContatos.data
+                        .map(contato => formatarTelefone(contato.telefone))
+                        .join(' - ');
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${tecnico.id}</td>
+                        <td>${tecnico.nome}</td>
+                        <td>${formatarCPF(tecnico.cpf)}</td>
+                        <td>${telefones}</td>
+                        <td>
+                            <button onclick="carregarDadosEdicao(${JSON.stringify(tecnico)})" class="btn btn-info">Editar</button>
+                            <button onclick="excluirTecnico(${tecnico.id})" class="btn btn-danger">Excluir</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                })
+                .catch(error => console.error(`Erro ao buscar contatos do tecnico ${tecnico.id}:`, error));
             });
         })
-        .catch(function(error) {
-            console.error('Erro ao buscar técnicos:', error);
-            // Aqui você pode tratar o erro, como exibir uma mensagem ao usuário
-        });
+        .catch(error => console.error('Erro ao buscar tecnicos:', error));
     }
-
-    // Chama buscarTecnicos para preencher a tabela ao carregar a página
-    buscarTecnicos();
-
-    // Exemplo de função para editar técnico
-    window.editarTecnico = function(id) {
-        console.log(`Editar técnico ${id}`);
-        // Aqui você pode adicionar a lógica para editar um técnico
-    }
-
-    // Exemplo de função para excluir técnico
+    
+    // Excluir tecnico
     window.excluirTecnico = function(id) {
-    // Confirmação antes de excluir
-    if (!confirm('Tem certeza que deseja excluir este técnico?')) {
-        return; // Se o usuário não confirmar, não fazer nada
-    }
+        if (confirm('Tem certeza que deseja excluir este tecnico?')) {
+            axios.delete(`http://[::1]:3000/tecnicos/${id}`)
+            .then(() => {
+                alert('Tecnico excluído com sucesso!');
+                listarTecnicos();
+            })
+            .catch(error => console.error('Erro ao excluir tecnico:', error));
+        }
+    };
 
-    // Substitua a URL pela URL da sua API, usando o ID do técnico para excluir
-    axios.delete(`http://localhost:3000/tecnicos/${id}`)
-    .then(function(response) {
-        console.log('Técnico excluído com sucesso:', response.data);
-        // Atualiza a lista de técnicos após a exclusão
-        buscarTecnicos();
+    // Editar tecnico
+    window.editarTecnico = function(id) {
+        console.log(`Editar Tecnico ${id}`);
+        // Você precisaria de uma forma de carregar os dados do tecnico para edição e salvar as alterações
+    };
+
+    // Carregar dados para edição
+    window.carregarDadosEdicao = function(tecnicoId) {
+        axios.get(`http://[::1]:3000/tecnicos/${tecnicoId}`)
+        .then(response => {
+            const tecnico = response.data;
+            // Preencher o formulário com os dados do tecnico
+            document.getElementById('nome').value = tecnico.nome;
+            document.getElementById('cpf').value = formatarCPF(tecnico.cpf);
+            // Supondo que o primeiro telefone está no tecnico.telefones[0], se não, ajuste conforme necessário
+            document.getElementById('telefone1').value = tecnico.telefones && tecnico.telefones.length > 0 ? formatarTelefone(tecnico.telefones[0]) : '';
+            document.getElementById('telefone2').value = tecnico.telefones && tecnico.telefones.length > 1 ? formatarTelefone(tecnico.telefones[1]) : '';
+            // Exibir o modal para edição
+            modalCadastrar.show();
+            // Atualize o evento do botão para salvar as alterações
+            document.querySelector('#staticBackdrop .btn-primary').addEventListener('click', function() {
+                salvarEdicao(tecnicoId); // Função para salvar as edições
+            });
+        })
+        .catch(error => console.error(`Erro ao carregar dados do tecnico ${tecnicoId} para edição:`, error));
+    };
+
+    // Salvar edições do tecnico
+    window.salvarEdicao = function(tecnicoId) {
+        const nome = document.getElementById('nome').value;
+        const cpf = document.getElementById('cpf').value;
+        const telefone1 = document.getElementById('telefone1').value;
+        const telefone2 = document.getElementById('telefone2').value;
+        // Atualizar os dados do tecnico
+        // ... (implemente a lógica de atualização aqui)
+    };
+
+    // expandir o menu
+    var btnExpandir = document.querySelector('#btn-exp')
+    var menuSide = document.querySelector('.sidebar')
+
+    btnExpandir.addEventListener('click', function(){
+        menuSide.classList.toggle('expandir')
     })
-    .catch(function(error) {
-        console.error('Erro ao excluir técnico:', error);
-        // Aqui você pode tratar o erro, como mostrar uma mensagem para o usuário
-    });
 
-    
-    
-};
-
+    listarTecnicos();
 });

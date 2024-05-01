@@ -73,7 +73,7 @@ body, html {
 
 /* Cores de fundo específicas para cada botão de link rápido */
 .btn-clientes { background-color: #3498db; color: white; }
-.btn-produtos { background-color: #2ecc71; color: white; }
+.btn-estoques { background-color: #2ecc71; color: white; }
 .btn-servicos { background-color: #f1c40f; color: white; }
 .btn-os { background-color: #e74c3c; color: white; }
 .btn-vendas { background-color: #9b59b6; color: white; }

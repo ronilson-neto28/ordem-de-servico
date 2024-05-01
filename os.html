@@ -2,73 +2,400 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <!-- Define a largura do dispositivo e a escala inicial do zoom -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordem de Serviço</title>
+    <title>Os</title>
+    <!-- Link para o arquivo CSS externo para estilização -->
     <link rel="stylesheet" href="src/css/os.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <!-- Link para o Bootstrap CSS para usar os estilos do Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Inclui a biblioteca Axios via CDN para fazer requisições HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+    
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-left">
-            <div class="logo">LOGO</div>
-        </div>
-        <div class="navbar-right">
-            <span>SUPORTE</span> | <span>NOME &#9662;</span>
-        </div>
-    </nav>
+    <!-- Navegação superior do site -->
+    <header>
+        <nav class="navbar" style="background-color: #f0f7fc; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="src/image/2.png" alt="Bootstrap" width="30" height="24">
+                </a>
+            </div>
 
-    <div class="wrapper">
-        <aside class="sidebar">
-            <nav class="menu">
-                <ul>
-                    <li>Visão Geral</li>
-                    <li>Cadastros</li>
-                    <li>Vendas</li>
-                    <li>Estoque</li>
+            <div class="btn-group" style=" margin-right: 40px;" >
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><button class="dropdown-item" type="button">Perfil</button></li>
+                    <li><button class="dropdown-item" type="button">Ajuda</button></li>
+                    <li><button class="dropdown-item" type="button">Sair</button></li>
                 </ul>
-            </nav>
-        </aside>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Estrutura principal da página -->
+    <div class="main">
+
+        <!-- Barra lateral para navegação secundária -->
+        <nav class="sidebar"> 
+
+            <div class="btn-expandir">
+                <i class="bi bi-list" id="btn-exp"></i>
+            </div>
+
+            <ul>
+                <li class="item-menu">
+                    <a href="homepage.html">
+                        <span class="icon"><i class="bi bi-house"></i></span>
+                        <span class="txt-link">Home</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="cliente.html">
+                        <span class="icon"><i class="bi bi-person"></i></span>
+                        <span class="txt-link">Clientes</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="tecnico.html">
+                        <span class="icon"><i class="bi bi-person-vcard-fill"></i></span>
+                        <span class="txt-link">Tecnicos</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="servico.html">
+                        <span class="icon"><i class="bi bi-tools"></i></span>
+                        <span class="txt-link">Serviços</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Conteúdo principal -->
         <main class="main-content">
+            <!-- Cabeçalho do conteúdo -->
             <div class="content-header">
-                <div class="search-bar">
-                    <input type="search" placeholder="Filtro">
-                    <button>&#128269;</button>
-                </div>
-                <div class="add-button">
-                    <button>+ Adicionar OS</button>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Procurar" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    +Adicionar OS
+                </button>
+                
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Ordem de Serviço</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Dados dos Cliente</h1>
+                            <!-- Cliente -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="clienteSelect" class="form-label">Cliente</label>
+                                    <select class="form-select" id="clienteSelect" required>
+                                        <option value="">Selecione um Cliente</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cpf">CPF</label>
+                                    <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="tel" id="telefone1" name="telefone" placeholder="Telefone" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="tel" id="telefone2" name="telefone" placeholder="Telefone" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" >Email</label>
+                                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                                </div>
+                            </div>
+
+                            <!-- Aparelho -->
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="imei">IMEI</label>
+                                    <input type="text" id="imei" name="imei" placeholder="IMEI" required>
+                                </div>
+
+                                <!-- Seletor de Marca e Modelo -->
+                                <div class="form-group">
+                                    <label for="marca">Marca</label>
+                                    <select id="marca" class="form-control">
+                                        <!-- Opções de marcas são carregadas aqui -->
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="modelo">Modelo</label>
+                                    <select id="modelo" class="form-control">
+                                        <!-- Opções de modelos são carregadas aqui -->
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="defeito">DEFEITO APRESENTADO</label>
+                                    <input type="text" id="defeito" name="defeito" placeholder="DEFEITO" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="senha">SENHA DA TELA</label>
+                                    <input type="text" id="senha" name="senha" placeholder="SENHA" required>
+                                </div>
+                            </div>
+                  
+
+                            <!-- Campos para testes booleanos -->
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Lista de Checagem (Checklist)</h1>
+                            <div class="form-row">
+                                <fieldset class="mb-3">
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="telaDisplay">Tela/Display:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="telaDisplaySim" name="telaDisplay" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="telaDisplayNao" name="telaDisplay" value="nao"> Não
+                                        </div>                                      
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="touchScreen">Touch Screen:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="touchScreenSim" name="touchScreen" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="touchScreenNao" name="touchScreen" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="sensorProximidade">Sensor de Proximidade:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="sensorProximidadeSim" name="sensorProximidade" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="sensorProximidadeNao" name="sensorProximidade" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="bluetooth">Bluetooth:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="bluetoothSim" name="bluetooth" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="bluetoothNao" name="bluetooth" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="ligacao">Ligação:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="ligacaoSim" name="ligacao" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="ligacaoNao" name="ligacao" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="wifi">Wi-Fi:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="wifiSim" name="wifi" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="wifiNao" name="wifi" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="altoFalante">Alto-Falante:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="altoFalanteSim" name="altoFalante" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="altoFalanteNao" name="altoFalante" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="touchId">Touch ID:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="touchIdSim" name="touchId" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="touchIdNao" name="touchId" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="botaoPower">Botão Power:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="botaoPowerSim" name="botaoPower" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="botaoPowerNao" name="botaoPower" value="nao"> Não
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="mb-3">
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="audioAuricular">Áudio Auricular:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="audioAuricularSim" name="audioAuricular" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="audioAuricularNao" name="audioAuricular" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="microfone">Microfone:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="microfoneSim" name="microfone" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="microfoneNao" name="microfone" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="cameraFrontal">Câmera Frontal:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="cameraFrontalSim" name="cameraFrontal" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="cameraFrontalNao" name="cameraFrontal" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="cameraTraseira">Câmera Traseira:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="cameraTraseiraSim" name="cameraTraseira" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="cameraTraseiraNao" name="cameraTraseira" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="botaoVolume">Botão Volume:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="botaoVolumeSim" name="botaoVolume" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="botaoVolumeNao" name="botaoVolume" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="conectorFone">Conector de Fone:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="conectorFoneSim" name="conectorFone" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="conectorFoneNao" name="conectorFone" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="dock">Dock:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="dockSim" name="dock" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="dockNao" name="dock" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="faceId">Face ID:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="faceIdSim" name="faceId" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="faceIdNao" name="faceId" value="nao"> Não
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label option-label" for="carregamentoInducao">Carregamento por Indução:</label>
+                                        <div class="radio-buttons">
+                                            <input type="radio" class="form-check-input" id="carregamentoInducaoSim" name="carregamentoInducao" value="sim"> Sim
+                                            <input type="radio" class="form-check-input" id="carregamentoInducaoNao" name="carregamentoInducao" value="nao"> Não
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="telefone">Saude da Bateria</label>
+                                    <input type="tel" id="telefone1" name="telefone" placeholder="Telefone" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dataEntrada">Data de Entrada</label>
+                                    <input type="datetime-local" id="dataEntrada" name="dataEntrada" placeholder="Data de Entrada" required>
+                                </div>
+                            </div>
+
+                            <!-- Tecnico -->
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tecnico Responsavel</h1>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tecnicoSelect" class="form-label">Técnico</label>
+                                    <select class="form-select" id="tecnicoSelect" required>
+                                        <option value="">Selecione um Técnico</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="tel" id="telefone1" name="telefone" placeholder="Telefone" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="tel" id="telefone2" name="telefone" placeholder="Telefone" required>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <!-- Adicionar fotos (espaço reservado) -->
+                                <div class="form-group">
+                                    <label for="fileUpload" class="form-label">Adicionar Fotos</label>
+                                    <input type="file" class="form-control" id="fileUpload" multiple>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: red;">Cancelar</button>
+                            <button type="button" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <table class="os-table">
+
+            <!-- Tabela para exibir Os -->
+            <table class="full-width-table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Ordem de Serviço</th>
-                        <th>Cliente</th>
-                        <th>Descrição</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
                         <th>Telefone</th>
+                        <th>Email</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Dados da os -->
-                  <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button>Editar</button>
-                            <button>Excluir</button>
-                        </td>
-                    </tr>
-                    <!-- Mais linhas podem ser adicionadas aqui -->
+                    <!-- Dados dos Os serão inseridos aqui -->
                 </tbody>
             </table>
         </main>
     </div>
-    <script src="js/os.js"></script>
+    <!-- Inclui o arquivo JavaScript para funcionalidades interativas -->
+    <script src="src/js/os.js"></script>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>

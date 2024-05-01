@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Selecione o botão pelo id
     const btnClientes = document.getElementById('btn-clientes');
-    const btnProdutos = document.getElementById('btn-produtos');
+    const btnEstoques = document.getElementById('btn-estoques');
     const btnServicos = document.getElementById('btn-servicos');
     const btnOs = document.getElementById('btn-os');
     const btnVendas = document.getElementById('btn-vendas');
@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'cliente.html';
     });
 
-    btnProdutos.addEventListener('click', function() {
+    btnEstoques.addEventListener('click', function() {
         // Redirecione para produto.html
-        window.location.href = 'produto.html';
+        window.location.href = 'estoque.html';
     });
 
     btnServicos.addEventListener('click', function() {
