@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    /*CAMERA*/
     var openCameraButton = document.getElementById('openCamera');
     var cameraInput = document.getElementById('cameraInput');
     var video = document.getElementById('video');
@@ -38,6 +39,27 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Navegador não suporta getUserMedia');
     }
 });
+
+const tecnicoSelect = document.getElementById('tecnicoSelect');
+    tecnicoSelect.addEventListener('change', function () {
+        const tecnicoId = this.value;
+        if (tecnicoId) {
+            fetch(`http://[::1]:3000/tecnicos/${tecnicoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Supondo que os dados incluam campos como telefone1 e telefone2
+                    document.getElementById('telefone1').value = data.telefone1 || '';
+                    document.getElementById('telefone2').value = data.telefone2 || '';
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar informações do técnico:', error);
+                });
+        } else {
+            // Limpar os campos se nenhuma opção válida for selecionada
+            document.getElementById('telefone1').value = '';
+            document.getElementById('telefone2').value = '';
+        }
+    });
 
 
 var btnExpandir = document.querySelector('#btn-exp');
