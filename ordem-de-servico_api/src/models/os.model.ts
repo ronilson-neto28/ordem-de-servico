@@ -1,8 +1,9 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Tecnico} from './tecnico.model';
 import {Cliente} from './cliente.model';
 import {Dispositivo} from './dispositivo.model';
 import {StatusOs} from './status-os.model';
+import {Servico} from './servico.model';
 
 @model()
 export class Os extends Entity {
@@ -147,6 +148,9 @@ export class Os extends Entity {
 
   @belongsTo(() => StatusOs)
   statusOsId: number;
+
+  @hasMany(() => Servico)
+  servicosOs: Servico[];
 
   constructor(data?: Partial<Os>) {
     super(data);

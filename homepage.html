@@ -7,45 +7,46 @@
     <!-- Link para o CSS da homepage e Bootstrap para estilos -->
     <link rel="stylesheet" href="src/css/homepage.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <!-- Título da página exibido na aba do navegador -->
     <title>homepage</title>
 </head>
 
 <body>
     <!-- Barra de navegação superior -->
-    <nav class="navbar">
-        <div class="navbar-left">
-            <!-- Local para logo da empresa ou projeto -->
-            <div class="logo">LOGO</div>
-        </div>
-        <div class="navbar-right">
-            <!-- Opções de suporte e nome do usuário com menu dropdown -->
-            <span>SUPORTE</span> | <span>NOME &#9662;</span>
-        </div>
-    </nav>
+    <header>
+        <nav class="navbar" style="background-color: #f0f7fc; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="src/image/2.png" alt="Bootstrap" width="30" height="24">
+                </a>
+            </div>
+
+            <div class="btn-group" style=" margin-right: 40px;" >
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuario
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><button class="dropdown-item" type="button">Perfil</button></li>
+                    <li><button class="dropdown-item" type="button">Ajuda</button></li>
+                    <li><button class="dropdown-item" type="button">Sair</button></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
     
     <!-- Wrapper para a barra lateral e o conteúdo principal -->
     <div class="wrapper">
-        <!-- Barra lateral para navegação no menu -->
-        <aside class="sidebar">
-            <nav class="menu">
-                <ul>
-                    <li>Visão Geral</li>
-                    <li>Cadastros</li>
-                    <li>Vendas</li>
-                    <li>Estoque</li>
-                </ul>
-            </nav>
-        </aside>
         <!-- Conteúdo principal da homepage -->
         <main class="main-content">
             <!-- Seção de links rápidos para as principais funcionalidades -->
             <section class="quick-links">
-                <button id="btn-clientes" class="btn-clientes">Clientes</button>
-                <button id="btn-estoques" class="btn-estoques">Estoque</button>
-                <button id="btn-servicos" class="btn-servicos">Serviços</button>
-                <button id="btn-os" class="btn-os">OS</button>
-                <button id="btn-vendas" class="btn-vendas">Vendas</button>   
+                <button id="btn-clientes" class="btn-clientes"><i class="bi bi-person"></i> Clientes</button>
+                <button id="btn-estoques" class="btn-estoques"><i class="bi bi-box-seam"></i> Estoque</button>
+                <button id="btn-servicos" class="btn-servicos"><i class="bi bi-tools"> </i>Serviços</button>
+                <button id="btn-os" class="btn-os"><i class="bi bi-file-text"></i> OS</button>
+                <button id="btn-tecnicos" class="btn-vendas"><i class="bi bi-person-vcard-fill"> </i>Tecnicos</button>   
             </section>
             <!-- Seção do painel para exibir informações, como estoque baixo ou OS em aberto -->
             <section class="dashboard">
@@ -60,10 +61,7 @@
             </section>
         </main>
     </div>
-    <!-- Scripts para funcionalidade adicional do Bootstrap e jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- Script específico da homepage para adicionar interatividade -->
     <script src="src/js/homepage.js"></script>
 </body>

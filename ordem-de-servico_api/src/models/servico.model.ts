@@ -24,6 +24,11 @@ export class Servico extends Entity {
   @belongsTo(() => ModeloDispositivo, {name: 'servicoModeloDispositivo'})
   modeloDispositivoId: number;
 
+  @property({
+    type: 'number',
+  })
+  osId?: number;
+
   constructor(data?: Partial<Servico>) {
     super(data);
   }

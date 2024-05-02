@@ -1,52 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetchClientes();
-    fetchTecnicos();
+    var openCameraButton = document.getElementById('openCamera');
+    var cameraInput = document.getElementById('cameraInput');
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+
+    if (navigator.mediaDevices.getUserMedia) {
+        openCameraButton.addEventListener('click', function() {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function(stream) {
+                    video.style.display = 'block';
+                    video.srcObject = stream;
+                    video.play();
+                    openCameraButton.textContent = 'Capturar Foto';
+                })
+                .catch(function(error) {
+                    console.error('Não foi possível acessar a câmera: ', error);
+                });
+        });
+
+        openCameraButton.addEventListener('click', function() {
+            if (video.style.display !== 'none') {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0);
+                var link = document.createElement('a');
+                link.download = 'foto.png';
+                link.href = canvas.toDataURL();
+                link.textContent = 'Clique para baixar a imagem';
+                document.body.appendChild(link);
+                video.style.display = 'none'; // Esconder o vídeo após tirar a foto
+            } else {
+                cameraInput.click(); // Simula um clique no input de câmera oculto
+            }
+        });
+    } else {
+        console.error('Navegador não suporta getUserMedia');
+    }
 });
 
-function fetchClientes() {
-    fetch('http://[::1]:3000/clientes')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('clienteSelect');
-            data.forEach(cliente => {
-                let option = new Option(cliente.nome, cliente.id);
-                select.add(option);
-            });
-        });
-}
-
-function fetchTecnicos() {
-    fetch('http://[::1]:3000/tecnicos')
-        .then(response => response.json())
-        .then(data => {
-            const select = document.getElementById('tecnicoSelect');
-            data.forEach(tecnico => {
-                let option = new Option(tecnico.nome, tecnico.id);
-                select.add(option);
-            });
-        });
-}
-
-function submitOSForm() {
-    const osData = {
-        clienteId: document.getElementById('clienteSelect').value,
-        tecnicoId: document.getElementById('tecnicoSelect').value,
-        // Inclua aqui todos os campos booleanos
-        telaDisplay: document.getElementById('telaDisplay').checked,
-        // e assim por diante...
-    };
-
-    fetch('http://[::1]:3000/os', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(osData)
-    })
-    .then(response => response.json())
-    .then(data => console.log('OS criada:', data))
-    .catch(error => console.error('Erro ao criar OS:', error));
-}
 
 var btnExpandir = document.querySelector('#btn-exp');
     var menuSide = document.querySelector('.sidebar');
@@ -55,4 +47,4 @@ var btnExpandir = document.querySelector('#btn-exp');
         menuSide.classList.toggle('expandir');
     });
 
-// Adicionar função para upload de fotos quando a rota estiver pronta
+

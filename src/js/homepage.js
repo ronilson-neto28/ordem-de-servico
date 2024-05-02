@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnEstoques = document.getElementById('btn-estoques');
     const btnServicos = document.getElementById('btn-servicos');
     const btnOs = document.getElementById('btn-os');
-    const btnVendas = document.getElementById('btn-vendas');
+    const btnTecnicos = document.getElementById('btn-tecnicos');
     
     // Adicione um ouvinte de eventos para o 'click'
     btnClientes.addEventListener('click', function() {
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'os.html';
     });
 
-    btnVendas.addEventListener('click', function() {
+    btnTecnicos.addEventListener('click', function() {
         // Redirecione para venda.html
-        window.location.href = 'venda.html';
+        window.location.href = 'tecnico.html';
     });
 
     // ...código para os outros botões...

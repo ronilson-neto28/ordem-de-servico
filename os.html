@@ -73,6 +73,12 @@
                         <span class="txt-link">Serviços</span>
                     </a>
                 </li>
+                <li class="item-menu">
+                    <a href="estoque.html">
+                        <span class="icon"><i class="bi bi-box-seam"></i></span>
+                        <span class="txt-link">Estoque</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         
@@ -319,9 +325,6 @@
                                 </fieldset>
                             </div>
 
-
-
-
                             <div class="form-row">
 
                                 <div class="form-group">
@@ -332,6 +335,19 @@
                                 <div class="form-group">
                                     <label for="dataEntrada">Data de Entrada</label>
                                     <input type="datetime-local" id="dataEntrada" name="dataEntrada" placeholder="Data de Entrada" required>
+                                </div>
+                            </div>
+
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Serviço</h1>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="descricao">Descrição</label>
+                                    <input type="text" id="descricao" name="descricao" placeholder="Descrição" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="custo">Custo</label>
+                                    <input type="text" id="custo" name="custo" placeholder="Custo" required>
                                 </div>
                             </div>
 
@@ -358,14 +374,28 @@
 
 
                             <div class="form-row">
-                                <!-- Adicionar fotos (espaço reservado) -->
                                 <div class="form-group">
                                     <label for="fileUpload" class="form-label">Adicionar Fotos</label>
-                                    <input type="file" class="form-control" id="fileUpload" multiple>
+                                    <input type="file" class="form-control" id="fileUpload" accept="image/*" multiple>
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <button id="openCamera" class="btn btn-primary">Tirar Foto</button>
+                                    <video id="video" style="display:none;" autoplay></video>
+                                    <canvas id="canvas" style="display:none;"></canvas>
+                                    <input type="file" class="form-control" id="cameraInput" accept="image/*" capture="user" style="display:none">
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="statusSelect" class="form-label">Status</label>
+                                    <select class="form-select" id="statusSelect" required>
+                                        <option value="">Selecione o Status da Os</option>
+                                    </select>
+                                </div>
+                            </div>  
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: red;">Cancelar</button>
@@ -381,9 +411,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>CPF</th>
                         <th>Telefone</th>
-                        <th>Email</th>
+                        <th>Dispositivo</th>
+                        <th>Valor</th>
+                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                 </thead>

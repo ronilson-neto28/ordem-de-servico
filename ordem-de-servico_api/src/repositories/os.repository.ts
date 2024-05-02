@@ -1,11 +1,12 @@
 import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
 import {PostgresDataSource} from '../datasources';
-import {Os, OsRelations, Tecnico, Cliente, Dispositivo, StatusOs} from '../models';
+import {Os, OsRelations, Tecnico, Cliente, Dispositivo, StatusOs, Servico} from '../models';
 import {TecnicoRepository} from './tecnico.repository';
 import {ClienteRepository} from './cliente.repository';
 import {DispositivoRepository} from './dispositivo.repository';
 import {StatusOsRepository} from './status-os.repository';
+import {ServicoRepository} from './servico.repository';
 
 export class OsRepository extends DefaultCrudRepository<
   Os,
@@ -21,10 +22,14 @@ export class OsRepository extends DefaultCrudRepository<
 
   public readonly statusOs: BelongsToAccessor<StatusOs, typeof Os.prototype.id>;
 
+  public readonly servicosOs: HasManyRepositoryFactory<Servico, typeof Os.prototype.id>;
+
   constructor(
-    @inject('datasources.Postgres') dataSource: PostgresDataSource, @repository.getter('TecnicoRepository') protected tecnicoRepositoryGetter: Getter<TecnicoRepository>, @repository.getter('ClienteRepository') protected clienteRepositoryGetter: Getter<ClienteRepository>, @repository.getter('DispositivoRepository') protected dispositivoRepositoryGetter: Getter<DispositivoRepository>, @repository.getter('StatusOsRepository') protected statusOsRepositoryGetter: Getter<StatusOsRepository>,
+    @inject('datasources.Postgres') dataSource: PostgresDataSource, @repository.getter('TecnicoRepository') protected tecnicoRepositoryGetter: Getter<TecnicoRepository>, @repository.getter('ClienteRepository') protected clienteRepositoryGetter: Getter<ClienteRepository>, @repository.getter('DispositivoRepository') protected dispositivoRepositoryGetter: Getter<DispositivoRepository>, @repository.getter('StatusOsRepository') protected statusOsRepositoryGetter: Getter<StatusOsRepository>, @repository.getter('ServicoRepository') protected servicoRepositoryGetter: Getter<ServicoRepository>,
   ) {
     super(Os, dataSource);
+    this.servicosOs = this.createHasManyRepositoryFactoryFor('servicosOs', servicoRepositoryGetter,);
+    this.registerInclusionResolver('servicosOs', this.servicosOs.inclusionResolver);
     this.statusOs = this.createBelongsToAccessorFor('statusOs', statusOsRepositoryGetter,);
     this.registerInclusionResolver('statusOs', this.statusOs.inclusionResolver);
     this.dispositivoOs = this.createBelongsToAccessorFor('dispositivoOs', dispositivoRepositoryGetter,);

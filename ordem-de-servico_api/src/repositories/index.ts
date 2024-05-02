@@ -10,3 +10,4 @@ export * from './tecnico.repository';
 export * from './tipo-dispositivo.repository';
 export * from './usuario.repository';
 export * from './contato-tecnico.repository';
+export * from './foto.repository';

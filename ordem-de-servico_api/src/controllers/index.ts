@@ -22,3 +22,5 @@ export * from './os-status-os.controller';
 export * from './contato-tecnico.controller';
 export * from './tecnico-contato-tecnico.controller';
 export * from './servico-modelo-dispositivo.controller';
+export * from './os-servico.controller';
+export * from './foto.controller';

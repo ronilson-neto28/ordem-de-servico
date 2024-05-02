@@ -10,3 +10,4 @@ export * from './status-os.model';
 export * from './estoque.model';
 export * from './os.model';
 export * from './contato-tecnico.model';
+export * from './foto.model';
